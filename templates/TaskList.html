@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Todo App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<CENTER>
+		<div class="well well-sm"><h2>Django ToDo App</h2></div>
+	</CENTER>
+	<div class="well well-sm">
+		<h3 align="CENTER"><b>Your Task</b></h3><a style="float:right;" href="/addtask/" class="btn btn-info" role="button">Add</a>
+		<form class="form-inline" action="" method="POST">{% csrf_token %}
+		<div class="form-group">
+			<label class="sr-only" for="search_date">Search Date : </label>
+	  		<div class="col-sm-6">
+	  			<input class="form-control" type="date" name="search_date" id="search_date" placeholder="Search Task">
+	  		</div>
+	  	</div>
+	  	<button type="submit" class="btn btn-warning">Search Task</button></br>
+	  	</form> 
+		<table class="table table-striped">
+			<thead>
+		      <tr>
+		        <th>Task</th>
+		        <th>Status</th>
+		        <th>Priority</th>
+		        <th>Due date</th>
+		        <th></th>
+		        <th></th>
+		        <th></th>
+		        <th></th>
+		      </tr>
+		    </thead>
+		{% if object_list1 %}
+		{% if object_list1 == "No Data To Display" %}
+		<tbody>
+			<tr>
+				<td></td>
+		        <td></td>
+		        <td></td>
+		        <td>{{object_list1}}</td>
+		        <td></td>
+		        <td></td>
+		        <td></td>
+		        <td></td>
+			</tr>
+		</tbody>
+		{% else %}
+		{% for obj in object_list1 %}
+		<tbody>
+			{% if obj.status == "Done" %}
+		    <tr class="success">
+		    {% endif %}
+		    {% if obj.status == "Doing" %}
+		    <tr class="info">
+		    {% endif %}
+		    {% if obj.status == "ToDo" %}
+		    <tr class="warning">
+		    {% endif %}
+		    {% if obj.due_date < currentDate %}
+			    {% if obj.status != "Done" %}
+			    <tr class="danger">
+			    {% endif %}
+		    {% endif %}
+		        <td><a href="/edittask/{{obj.pk}}/"><i class="fas fa-pencil-alt"></i></a> {{obj.task_name}}</td>
+		        <td>{{obj.status}}</td>
+		        <td>{{obj.priority}}</td>
+		        <td>{{obj.due_date}}</td>
+		        <td><a href="/deletetask/{{obj.pk}}/"><div style="font-size:1em; color:Red"><i class="far fa-trash-alt"></i></div></i></a></td>
+		        <td></td>
+		        <td></td>
+		        <td></td>
+		      </tr>
+		</tbody>
+		{% endfor %}
+		{% endif %}
+		{% else %}
+		{% for obj in object_list %}
+		<tbody>
+			{% if obj.status == "Done" %}
+		    <tr class="success">
+		    {% endif %}
+		    {% if obj.status == "Doing" %}
+		    <tr class="info">
+		    {% endif %}
+		    {% if obj.status == "ToDo" %}
+		    <tr class="warning">
+		    {% endif %}
+		    {% if obj.due_date < currentDate %}
+			    {% if obj.status != "Done" %}
+			    <tr class="danger">
+			    {% endif %}
+		    {% endif %}
+		        <td><a href="/edittask/{{obj.pk}}/"><i class="fas fa-pencil-alt"></i></a> {{obj.task_name}}</td>
+		        <td>{{obj.status}}</td>
+		        <td>{{obj.priority}}</td>
+		        <td>{{obj.due_date}}</td>
+		        <td><a href="/deletetask/{{obj.pk}}/"><div style="font-size:1em; color:Red"><i class="far fa-trash-alt"></i></div></i></a></td>
+		        <td></td>
+		        <td></td>
+		        <td></td>
+		      </tr>
+		</tbody>
+		{% endfor %}
+		{% endif %}
+		</table>
+	</div>
+	<div><div class="col-sm-3" style="color:#f0ad4e"><i class="fas fa-square"></i> : <b style="color:black">ToDo</b></div> <div class="col-sm-3" style="color:#d9edf7"><i class="fas fa-square"></i> : <b style="color:black">Doing</b></div> <div class="col-sm-3" style="color:#dff0d8"><i class="fas fa-square"></i> : <b style="color:black">Done</b></div><div class="col-sm-3" style="color:#f2dede"><i class="fas fa-square"></i> : <b style="color:black">Expired</b></div></div>
+</div>
+</body>
+</html>

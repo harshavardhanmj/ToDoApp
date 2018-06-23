@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Todo App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<CENTER>
+		<div class="well well-sm"><h2>Django ToDo App</h2></div>
+	</CENTER>
+	<div class="well well-sm">
+	<CENTER>
+	<h3><b>Delete Task</b></h3>
+	</CENTER>
+		<form class="form-horizontal" action="" method="POST">{% csrf_token %}
+		<div class="form-group">
+	  		<label class="control-label col-sm-7" for="task_name"><h4><b>Confirm Delete "{{object}}" ?</h4></b></label><b/>
+	  		<div class="col-sm-offset-5 col-sm-10">
+	  			<button type="submit" class="btn btn-danger">Confirm</button>
+	  			<a href="/" class="btn btn-default">Cancel</a>
+	      	</div>
+	  	</div>
+	   </form>
+	</div>
+</div>
+</body>
+</html>
